@@ -9,10 +9,12 @@ namespace HotelBooking.Data.Entities
         public int Id { get; set; }
 
         public string UserId { get; set; }
+
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }
 
         public int RoomId { get; set; }
+
         [ForeignKey(nameof(RoomId))]
         public Room Room { get; set; }
 

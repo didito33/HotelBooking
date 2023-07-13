@@ -11,6 +11,7 @@ namespace HotelBooking.Data.Entities
         {
             this.Rooms = new List<Room>();
         }
+
         public int Id { get; set; }
 
         [Required]
@@ -22,6 +23,7 @@ namespace HotelBooking.Data.Entities
 
         [Required]
         public string ImageUrl { get; set; }
+
         public int CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
@@ -30,6 +32,7 @@ namespace HotelBooking.Data.Entities
         public List<Room> Rooms { get; set; }
 
         public int CityId { get; set; }
+
         [ForeignKey(nameof(CityId))]
         public City City { get; set; }
     }

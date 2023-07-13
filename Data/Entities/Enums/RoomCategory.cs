@@ -1,4 +1,4 @@
-﻿namespace HotelBooking.Data.Entities
+﻿namespace HotelBooking.Data.Entities.Enums
 {
     public enum RoomCategory
     {

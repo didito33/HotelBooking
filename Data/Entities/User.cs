@@ -8,8 +8,11 @@ namespace HotelBooking.Data.Entities
         {
             this.Reservations = new List<Reservation>();
         }
+
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
+
         public List<Reservation> Reservations { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-
+using HotelBooking.Data.Entities.Enums;
 using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 #nullable disable
@@ -11,6 +11,7 @@ namespace HotelBooking.Data.Entities
         {
             Reservations = new List<Reservation>();
         }
+
         public int Id { get; set; }
 
         [Required]
@@ -21,11 +22,16 @@ namespace HotelBooking.Data.Entities
 
         [Column(TypeName = "decimal(8,2)")]
         public decimal PricePerNight { get; set; }
+
         public int Capacity { get; set; }
+
         public RoomCategory RoomCategory { get; set; }
+
         public int HotelId { get; set; }
+
         [ForeignKey(nameof(HotelId))]
         public Hotel Hotel { get; set; }
+
         public List<Reservation> Reservations { get; set; }
 
     }

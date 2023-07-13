@@ -10,7 +10,9 @@ namespace HotelBooking.Data.Entities
         {
             this.Hotels = new List<Hotel>();
         }
+
         public int Id { get; set; }
+
         [Required]
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
