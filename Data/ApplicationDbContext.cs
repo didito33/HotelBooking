@@ -1,13 +1,16 @@
-﻿using HotelBooking.Data.Entities;
+﻿using System.Reflection;
+
+using HotelBooking.Data.Configurations;
+using HotelBooking.Data.Entities;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelBooking.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class HotelBookingDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public HotelBookingDbContext(DbContextOptions<HotelBookingDbContext> options)
             : base(options)
         {
             
@@ -23,14 +26,11 @@ namespace HotelBooking.Data
         {
             base.OnModelCreating(builder);
 
-            //builder
-            //   .Entity<Hotel>()
-            //   .HasOne(h => h.Category)
-            //   .WithMany(c => c.Hotels)
-            //   .HasForeignKey(h => h.CategoryId)
-            //   .OnDelete(DeleteBehavior.Restrict);
+            Assembly configAssembly = Assembly.GetAssembly(typeof(HotelBookingDbContext)) ??
+                                      Assembly.GetExecutingAssembly();
+            builder.ApplyConfigurationsFromAssembly(configAssembly);
 
-           
+
         }
     }
 }

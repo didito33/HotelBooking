@@ -11,6 +11,5 @@ namespace HotelBooking.Data.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public List<Reservation> Reservations { get; set; }
-        public int MyProperty { get; set; }
     }
 }

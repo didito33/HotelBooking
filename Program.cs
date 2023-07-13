@@ -13,7 +13,7 @@ namespace HotelBooking
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<HotelBookingDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -25,7 +25,7 @@ namespace HotelBooking
                 options.Password.RequireUppercase = false;
                 options.Password.RequireDigit = false;
             })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<HotelBookingDbContext>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
