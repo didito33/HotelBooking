@@ -1,4 +1,6 @@
 using HotelBooking.Data;
+using HotelBooking.Services.Hotels;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +29,7 @@ namespace HotelBooking
             })
                 .AddEntityFrameworkStores<HotelBookingDbContext>();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddTransient<IHotelService, HotelService>();
 
             var app = builder.Build();
 
