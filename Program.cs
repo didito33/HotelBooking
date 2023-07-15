@@ -28,8 +28,10 @@ namespace HotelBooking
                 options.Password.RequireDigit = false;
             })
                 .AddEntityFrameworkStores<HotelBookingDbContext>();
+
             builder.Services.AddControllersWithViews();
-            builder.Services.AddTransient<IHotelService, HotelService>();
+
+            builder.Services.AddScoped<IHotelService, HotelService>();
 
             var app = builder.Build();
 
@@ -54,9 +56,8 @@ namespace HotelBooking
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapDefaultControllerRoute();
+
             app.MapRazorPages();
 
             app.Run();

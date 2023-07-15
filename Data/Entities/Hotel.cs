@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using static HotelBooking.Data.DataConstants.HotelConstants;
+using static HotelBooking.Common.DataConstants.HotelConstants;
 #nullable disable
 namespace HotelBooking.Data.Entities
 {

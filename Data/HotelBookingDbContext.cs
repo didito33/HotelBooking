@@ -24,13 +24,11 @@ namespace HotelBooking.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
-
             Assembly configAssembly = Assembly.GetAssembly(typeof(HotelBookingDbContext)) ??
                                       Assembly.GetExecutingAssembly();
             builder.ApplyConfigurationsFromAssembly(configAssembly);
 
-
+            base.OnModelCreating(builder);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using static HotelBooking.Data.DataConstants.CategoryConstants;
+using static HotelBooking.Common.DataConstants.CategoryConstants;
 #nullable disable
 namespace HotelBooking.Data.Entities
 {

@@ -15,6 +15,7 @@ namespace HotelBooking.Controllers
             this.hotels = hotels;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var hotels = this.hotels.LastThreeHotels();

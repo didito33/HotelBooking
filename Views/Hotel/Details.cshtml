@@ -1,0 +1,50 @@
+﻿@model HotelDetailsViewModel
+@{
+    ViewBag.Title = "Hotel Details";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+<div class="text-center">
+    <h1 class="display-1 justify-content-center"><strong>Welcome to the hotel details page!</strong></h1>
+</div>
+
+<input asp-for="@Model.Id" type="hidden" />
+
+<section id="about">
+    <div class="container mt-4 pt-4 bg-light p-2 text-dark bg-opacity-75">
+        <h3 class="text-center">About the hotel</h3>
+        <div class="row mt-4">
+            <div class="col-lg-4">
+                <img src="@Model.ImageUrl" class="imageAboutPage" width="400" alt="photo of the hotel">
+            </div>
+
+
+            <div class="col-lg-8">
+                <p>
+                    @Model.Description
+                </p>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Name: @Model.Name</li>
+                            <li>Category: @Model.Category</li>
+                            <li>City: @Model.City</li>
+                        </ul>
+                    </div>
+                </div>
+
+                @if (User.Identity.Name == Model.User)
+                {
+                    <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+                }
+                <a asp-controller="Home" asp-action="Index" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to Home Page</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

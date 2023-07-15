@@ -1,4 +1,4 @@
-﻿namespace HotelBooking.Data
+﻿namespace HotelBooking.Common
 {
     static public class DataConstants
     {
@@ -12,8 +12,9 @@
         //Hotel constants
         public static class HotelConstants
         {
-            public const int HotelNameMaxLength = 50;
             public const int HotelNameMinLength = 10;
+            public const int HotelNameMaxLength = 50;
+
             public const int DescriptionMinLength = 50;
             public const int DescriptionMaxLength = 500;
         }
@@ -21,6 +22,7 @@
         {
             public const int DescriptionMinLength = 50;
             public const int DescriptionMaxLength = 500;
+
             public const double PricePerDayMin = 0;
             public const double PricePerDayMax = 5000;
         }
