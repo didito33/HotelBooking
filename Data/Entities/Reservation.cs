@@ -12,7 +12,6 @@ namespace HotelBooking.Data.Entities
 
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }
-
         public int RoomId { get; set; }
 
         [ForeignKey(nameof(RoomId))]

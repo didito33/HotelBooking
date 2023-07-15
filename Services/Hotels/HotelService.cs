@@ -1,18 +1,20 @@
 ﻿using HotelBooking.Data;
+using HotelBooking.Models.Hotel;
+using HotelBooking.Services.Hotels.Models;
 using HotelBooking.Services.Models;
 
 namespace HotelBooking.Services.Hotels
 {
     public class HotelService : IHotelService
     {
-        private readonly HotelBookingDbContext context;
+        private readonly HotelBookingDbContext data;
         public HotelService(HotelBookingDbContext context)
         {
-            this.context = context;
+            this.data = context;
         }
 
         public IEnumerable<HotelIndexServiceModel> LastThreeHotels()
-            =>this.context.Hotels.OrderByDescending(h => h.Id)
+            =>this.data.Hotels.OrderByDescending(h => h.Id)
                 .Select(h => new HotelIndexServiceModel
                 {
                     Id = h.Id,
@@ -20,6 +22,5 @@ namespace HotelBooking.Services.Hotels
                     Name = h.Name
                 })
                 .Take(3);
-        
     }
 }
