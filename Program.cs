@@ -1,5 +1,6 @@
 using HotelBooking.Data;
 using HotelBooking.Services.Hotels;
+using HotelBooking.Services.Rooms;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,8 @@ namespace HotelBooking
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<IHotelService, HotelService>();
+            builder.Services.AddScoped<IRoomService, RoomService>();
+
 
             var app = builder.Build();
 

@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Entities\Enums\" />
+    <Folder Include="Data\Migrations\" />
     <Folder Include="Models\Home\" />
   </ItemGroup>
 

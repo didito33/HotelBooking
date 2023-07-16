@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using HotelBooking.Data.Entities.Enums;
 using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 #nullable disable
@@ -25,8 +24,9 @@ namespace HotelBooking.Data.Entities
 
         public int Capacity { get; set; }
 
+        public int RoomCategoryId { get; set; }
+        [ForeignKey(nameof(RoomCategoryId))]
         public RoomCategory RoomCategory { get; set; }
-
         public int HotelId { get; set; }
 
         [ForeignKey(nameof(HotelId))]

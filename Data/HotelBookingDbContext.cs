@@ -21,6 +21,7 @@ namespace HotelBooking.Data
         public DbSet<Reservation> Reservations{ get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<RoomCategory> RoomCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

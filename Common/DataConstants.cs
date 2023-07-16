@@ -25,6 +25,14 @@
 
             public const double PricePerDayMin = 0;
             public const double PricePerDayMax = 5000;
+
+            public const int RoomTypeMaxLength = 30;
+            public const int RoomTypeMinLength = 5;
+
+            public const int RoomTypeDescriptionMaxLength = 2000;
+            public const int RoomTypeDescriptionMinLength = 5;
+            
+
         }
     }
 }

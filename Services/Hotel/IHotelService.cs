@@ -7,7 +7,7 @@ namespace HotelBooking.Services.Hotels
     public interface IHotelService
     {
         IEnumerable<HotelIndexServiceModel> LastThreeHotels();
-        
+        Task<IEnumerable<HotelViewModel>> GetAllHotelsAsync();
         Task<HotelDetailsViewModel?> GetDetailsAsync(int id);
     }
 }

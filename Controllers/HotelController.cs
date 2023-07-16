@@ -1,5 +1,7 @@
 ﻿using HotelBooking.Models.Hotel;
 using HotelBooking.Services.Hotels;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelBooking.Controllers
@@ -17,8 +19,12 @@ namespace HotelBooking.Controllers
             return View();
         }
 
-        public IActionResult All()
-            => View(new AllHotelsQueryModel());
+        [AllowAnonymous]
+        public async Task<IActionResult> All()
+        {
+            var models = await service.GetAllHotelsAsync();
+            return View(models);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)

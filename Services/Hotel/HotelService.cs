@@ -14,6 +14,18 @@ namespace HotelBooking.Services.Hotels
             this.context = context;
         }
 
+        public async Task<IEnumerable<HotelViewModel>> GetAllHotelsAsync()
+        {
+            return await this.context.Hotels.Select(h => new HotelViewModel()
+            {
+                Id = h.Id,
+                Category = h.Category.Name,
+                Description = h.Description,
+                ImageUrl = h.ImageUrl,
+                Name = h.Name
+            }).ToListAsync();
+        }
+
         public async Task<HotelDetailsViewModel?> GetDetailsAsync(int id)
         {
             return await context.Hotels

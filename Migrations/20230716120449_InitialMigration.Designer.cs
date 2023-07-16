@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace HotelBooking.Data.Migrations
+namespace HotelBooking.Migrations
 {
     [DbContext(typeof(HotelBookingDbContext))]
-    [Migration("20230715180856_HotelUserRelation")]
-    partial class HotelUserRelation
+    [Migration("20230716120449_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -264,12 +264,14 @@ namespace HotelBooking.Data.Migrations
                     b.Property<decimal>("PricePerNight")
                         .HasColumnType("decimal(8,2)");
 
-                    b.Property<int>("RoomCategory")
+                    b.Property<int>("RoomCategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("HotelId");
+
+                    b.HasIndex("RoomCategoryId");
 
                     b.ToTable("Rooms");
 
@@ -282,7 +284,7 @@ namespace HotelBooking.Data.Migrations
                             HotelId = 1,
                             ImageUrl = "https://img.freepik.com/free-photo/3d-rendering-loft-luxury-living-room-with-bookshelf_105762-2104.jpg?w=996&t=st=1689254418~exp=1689255018~hmac=29c24ce3a8eb52db275aa64538a823ac83f6749f3fa0cceed9f9ebd6ef90b846",
                             PricePerNight = 50m,
-                            RoomCategory = 2
+                            RoomCategoryId = 1
                         },
                         new
                         {
@@ -292,7 +294,7 @@ namespace HotelBooking.Data.Migrations
                             HotelId = 2,
                             ImageUrl = "https://img.freepik.com/free-photo/mockup-poster-frame-modern-interior-background-with-armchair-accessories-room_41470-5126.jpg?w=826&t=st=1689254644~exp=1689255244~hmac=5993c0b6b8d97d25dee1e977eaf87c3086a5a3425fb2be4ca6efd052305e319c",
                             PricePerNight = 80m,
-                            RoomCategory = 1
+                            RoomCategoryId = 2
                         },
                         new
                         {
@@ -302,7 +304,50 @@ namespace HotelBooking.Data.Migrations
                             HotelId = 3,
                             ImageUrl = "https://img.freepik.com/free-psd/front-view-room-with-bed-modern-wooden-night-tables-mockup_176382-1962.jpg?w=826&t=st=1689254706~exp=1689255306~hmac=2f4c339bb2b6979caf45d2e93d0bf06246de3dcbc0cc84f2b14be03c30326888",
                             PricePerNight = 100m,
-                            RoomCategory = 2
+                            RoomCategoryId = 1
+                        });
+                });
+
+            modelBuilder.Entity("HotelBooking.Data.Entities.RoomCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoomCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "A room for 2 people",
+                            Name = "Double"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "A room for more than 2 people",
+                            Name = "Apartment"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "A room suitable for more than 3 people.",
+                            Name = "Studio"
                         });
                 });
 
@@ -588,7 +633,15 @@ namespace HotelBooking.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("HotelBooking.Data.Entities.RoomCategory", "RoomCategory")
+                        .WithMany("Rooms")
+                        .HasForeignKey("RoomCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Hotel");
+
+                    b.Navigation("RoomCategory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -665,6 +718,11 @@ namespace HotelBooking.Data.Migrations
             modelBuilder.Entity("HotelBooking.Data.Entities.Room", b =>
                 {
                     b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("HotelBooking.Data.Entities.RoomCategory", b =>
+                {
+                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("HotelBooking.Data.Entities.User", b =>

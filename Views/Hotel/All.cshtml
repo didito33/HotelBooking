@@ -1,7 +1,37 @@
-﻿@model AllHotelsQueryModel
-
+﻿@model IEnumerable<HotelViewModel>
 @{
-    ViewBag.Title = "All Houses";
+    ViewBag.Title = "All Pets";
 }
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<div class="text-center container mt-4 pt-4 bg-light p-2 text-dark bg-opacity-75">
+<h1 class="text-center">All Hotels</h1>
+</div>
+@if (!Model.Any())
+{
+    <h2 class="text-center">No hotels added yet.</h2>
+}
+<div class="container-fluid padding">
+    <div class="row">
+        <div class="row padding">
+            
+@foreach (var hotel in Model)
+{
+    <div class="card" style="width: 18rem;">
+        <img src="@hotel.ImageUrl" class="card-img-top" alt="Hotel Photo">
+        <div class="card-body">
+            <h5 class="card-title">@hotel.Name</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">@hotel.Category</h6>
+            <p class="card-text">@hotel.Description</p>
+            <a asp-controller="Hotel" asp-action="Details" asp-route-id="@hotel.Id" class="btn btn-primary">See Details</a>
+        </div>
+    </div>
+}
+        </div>
+    </div>
+</div>
+</>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
