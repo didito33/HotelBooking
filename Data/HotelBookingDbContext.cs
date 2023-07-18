@@ -8,14 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelBooking.Data
 {
-    public class HotelBookingDbContext : IdentityDbContext
+    public class HotelBookingDbContext : IdentityDbContext<User>
     {
         public HotelBookingDbContext(DbContextOptions<HotelBookingDbContext> options)
             : base(options)
         {
             
         }
-        public DbSet<User> Users { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Reservation> Reservations{ get; set; }

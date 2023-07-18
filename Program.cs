@@ -1,7 +1,9 @@
 using HotelBooking.Data;
+using HotelBooking.Data.Entities;
 using HotelBooking.Services.Hotels;
 using HotelBooking.Services.Reservations;
 using HotelBooking.Services.Rooms;
+using HotelBooking.Services.Users;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +23,7 @@ namespace HotelBooking
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+            builder.Services.AddDefaultIdentity<User>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -36,6 +38,7 @@ namespace HotelBooking
             builder.Services.AddScoped<IHotelService, HotelService>();
             builder.Services.AddScoped<IRoomService, RoomService>();
             builder.Services.AddScoped<IReservationService, ReservationService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
 
             var app = builder.Build();
