@@ -1,4 +1,4 @@
-﻿@*@model RoomViewModel
+﻿@model RoomViewModel
 
 @{
     ViewData["Title"] = Model.Description;
@@ -13,7 +13,7 @@
         </div>
         <div class="col-4">
             <img class="card-img-top" style="width: 20rem;"
-                 src="@Model.ImageUrl" alt="House Image">
+                 src="@Model.ImageURL" alt="House Image">
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -39,4 +39,4 @@
 
 <div class="button">
     <a asp-controller="Reservations" asp-action="Reserve" asp-route-id="@Model.Id" button type="button" class="btn btn-secondary btn-lg btn-block">Reserve Room</a>
-</div>*@
+</div>

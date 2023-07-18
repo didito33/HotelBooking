@@ -38,6 +38,7 @@ namespace HotelBooking.Services.Hotels
                     Description = p.Description,
                     Category = p.Category.Name,
                     City = p.City.Name,
+                    User = p.UserId
                 })
                  .FirstOrDefaultAsync();
         }

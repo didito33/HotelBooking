@@ -4,13 +4,13 @@
     {
         public int Id { get; set; }
 
-        public string RoomCategory { get; set; }
+        public string RoomCategory { get; set; } = null!;
 
-        public string ImageURL { get; set; }
+        public string ImageURL { get; set; } = null!;
 
-        public string Description { get; set; }
+        public string Description { get; set; } = null!;
 
-        public string HotelName { get; set; }
+        public string HotelName { get; set; } = null!;
 
         public int HotelId { get; set; }
 

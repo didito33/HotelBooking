@@ -35,11 +35,12 @@
                     </div>
                 </div>
 
-                @if (User.Identity.Name == Model.User)
+                @if (User.Identity.Name != Model.User)
                 {
-                    <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+                    <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                    <a asp-controller="Room" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-warning ">Add Room</a>
                 }
-                <a asp-controller="Home" asp-action="Index" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Back to Home Page</a>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to Home Page</a>
             </div>
         </div>
     </div>

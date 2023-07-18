@@ -5,8 +5,10 @@ namespace HotelBooking.Services.Rooms
 {
     public interface IRoomService
     {
-        public Task AddRoom(AddRoomViewModel roomModel);
+        public Task AddRoomAsync(AddRoomViewModel roomModel);
+
         public List<RoomCategoryViewModel> GetRoomCategories();
-        public RoomViewModel GetRoom(int roomId);
+
+        public RoomViewModel? GetRoom(int roomId);
     }
 }
