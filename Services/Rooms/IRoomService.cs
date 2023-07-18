@@ -7,5 +7,6 @@ namespace HotelBooking.Services.Rooms
     {
         public Task AddRoom(AddRoomViewModel roomModel);
         public List<RoomCategoryViewModel> GetRoomCategories();
+        public RoomViewModel GetRoom(int roomId);
     }
 }

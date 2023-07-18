@@ -1,0 +1,42 @@
+﻿@*@model RoomViewModel
+
+@{
+    ViewData["Title"] = Model.Description;
+}
+
+<div class="container">
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="active" aria-current="true"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+        </div>
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="House Image">
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<div class="container description-jumbotron border-dark">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 text-center">Description</h1>
+            <p>This room is part of <a asp-controller="Hotels" asp-action="Details" asp-route-id="@Model.HotelId">@Model.HotelName</a></p>
+            <p class="lead">@Model.Description</p>
+            <p class="lead">The price for one night is <b>@Model.PriceForOneNight</b></p>
+        </div>
+    </div>
+</div>
+
+<div class="button">
+    <a asp-controller="Reservations" asp-action="Reserve" asp-route-id="@Model.Id" button type="button" class="btn btn-secondary btn-lg btn-block">Reserve Room</a>
+</div>*@

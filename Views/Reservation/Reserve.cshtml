@@ -1,0 +1,30 @@
+﻿@model ReserveRoomViewModel
+
+@{
+    ViewData["Title"] = "Reserve Room";
+    DateTime StartDate = TempData["StartDate"] == null ? DateTime.Today : DateTime.Parse(TempData["StartDate"].ToString());
+    DateTime EndDate = TempData["EndDate"] == null ? DateTime.Today.AddDays(1) : DateTime.Parse(TempData["EndDate"].ToString());
+}
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-lg-3 col-xl-6">
+        <h2 class="heading-margin text-center">Reserve Room</h2>
+
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="StartDate" class="form-label"></label>
+                <input asp-for="StartDate" type="date" class="form-control" value="@StartDate.ToString("yyyy-MM-dd")">
+                <span asp-validation-for="StartDate" class="small text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="EndDate" class="form-label"></label>
+                <input asp-for="EndDate" type="date" class="form-control" value="@EndDate.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="EndDate" class="small text-danger"></span>
+            </div>
+
+            <input id="reserveButton" class="btn btn-primary" type="submit" onclick="return confirm('Are you sure you want to reserve the room?');" value="Reserve" />
+        </form>
+    </div>
+</div>

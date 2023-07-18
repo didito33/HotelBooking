@@ -14,21 +14,13 @@ namespace HotelBooking.Controllers
         {
             this.roomService = roomService;
         }
+        
         public IActionResult Add() => this.View(new AddRoomViewModel
         {
             RoomCategories = this.roomService.GetRoomCategories()
         });
-        /*public async Task<IActionResult> Add()
-        {
-            var model = new AddRoomViewModel()
-            {
-                model.RoomCategories = await roomService.GetRoomCategories()
-            };
-            return View(model);
-        }*/
-
-        //[HttpPost]
-        /*public async Task<IActionResult> Add(int id, AddRoomViewModel roomModel)
+        [HttpPost]
+        public async Task<IActionResult> Add(int id, AddRoomViewModel roomModel)
         {
             if (!ModelState.IsValid)
             {
@@ -42,8 +34,18 @@ namespace HotelBooking.Controllers
 
 
             return this.View(roomModel);
-        }*/
+        }
+        public IActionResult Details(int id)
+        {
+            var room = this.roomService.GetRoom(id);
 
+            if (room == null)
+            {
+                RedirectToAction("All", "Hotels");
+            }
+
+            return this.View(room);
+        }
 
     }
 }
