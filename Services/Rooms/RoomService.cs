@@ -2,6 +2,7 @@
 using HotelBooking.Data.Entities;
 using HotelBooking.Data;
 using Microsoft.EntityFrameworkCore;
+using HotelBooking.ViewModels.RoomCategory;
 
 namespace HotelBooking.Services.Rooms
 {
@@ -25,18 +26,32 @@ namespace HotelBooking.Services.Rooms
                 PricePerNight = roomModel.Price,
                 RoomCategoryId = roomModel.RoomCategoryId
             };
+
             this.context.Rooms.Add(room);
             await context.SaveChangesAsync();
         }
 
-        public List<RoomCategoryViewModel> GetRoomCategories()
+        public async Task<List<RoomCategoryViewModel>> GetRoomCategories()
         {
-            return this.context.RoomCategories.Select(c => new RoomCategoryViewModel()
-            {
-                Name = c.Name,
-                Id = c.Id,
-                Description =c.Description,
-            }).ToList();
+            List<RoomCategoryViewModel> categories = 
+                await this.context.RoomCategories
+                .AsNoTracking()
+                .Select(c => new RoomCategoryViewModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                })
+                .ToListAsync();
+
+            return categories;
+        }
+
+        public async Task<bool> RoomCategoryExistsByIdAsync(int id)
+        {
+            bool result = await this.context.RoomCategories
+                .AnyAsync(p => p.Id == id);
+
+            return result;
         }
 
         public RoomViewModel? GetRoom(int roomId)
@@ -45,11 +60,11 @@ namespace HotelBooking.Services.Rooms
             .Where(r=>r.Id == roomId)
             .Select(r=> new RoomViewModel()
             {
+                Id = r.Id,
                 Description = r.Description,
                 HotelId=r.HotelId,
                 PriceForOneNight = r.PricePerNight,
                 HotelName = r.Hotel.Name,
-                Id = r.Id,
                 ImageURL = r.ImageUrl,
                 RoomCategory = r.RoomCategory.Name
             })
@@ -65,7 +80,7 @@ namespace HotelBooking.Services.Rooms
                 Capacity = roomModel.Capacity,
                 HotelId = roomModel.HotelId,
                 PricePerNight = roomModel.Price,
-                RoomCategoryId = roomModel.RoomCategoryId
+                RoomCategoryId = roomModel.RoomCategoryId,
             };
 
             await this.context.Rooms.AddAsync(room);

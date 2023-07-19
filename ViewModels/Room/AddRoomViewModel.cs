@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using HotelBooking.ViewModels.RoomCategory;
 using static HotelBooking.Common.DataConstants.RoomConstants;
 
 namespace HotelBooking.Models.Room
@@ -24,6 +25,8 @@ namespace HotelBooking.Models.Room
 
         public int RoomCategoryId { get; set; }
 
-        public List<RoomCategoryViewModel> RoomCategories { get; set; } = null!;
+        public string UserId { get; set; }
+
+        public List<RoomCategoryViewModel> RoomCategories { get; set; }
     }
 }

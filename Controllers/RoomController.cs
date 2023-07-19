@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelBooking.Controllers
 {
-    public class RoomController : Controller
+    public class RoomController : BaseController
     {
         private readonly IRoomService roomService;
 
@@ -16,17 +16,32 @@ namespace HotelBooking.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add() => this.View(new AddRoomViewModel
+        public async Task<IActionResult> Add() 
         {
-            RoomCategories = this.roomService.GetRoomCategories()
-        });
+            AddRoomViewModel model = new AddRoomViewModel()
+            {
+                RoomCategories = await this.roomService.GetRoomCategories()
+            };
+
+            model.UserId = GetUserId();
+
+            return View(model);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Add(AddRoomViewModel roomModel)
         {
+            bool roomCategoryExists = await this.roomService.RoomCategoryExistsByIdAsync(roomModel.RoomCategoryId);
+
+            if (!roomCategoryExists)
+            {
+                ModelState.AddModelError(nameof(roomModel.RoomCategoryId), "Selected room category does not exist!");
+            }
+
             if (!ModelState.IsValid)
             {
-                roomModel.RoomCategories = this.roomService.GetRoomCategories();
+                roomModel.RoomCategories = await this.roomService.GetRoomCategories();
+
                 return this.View(roomModel);
             }
 

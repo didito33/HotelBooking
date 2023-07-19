@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                @if (User.Identity.Name == Model.User)
+                @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.User)
                 {
                     <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
                     <a asp-controller="Room" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-warning ">Add Room</a>

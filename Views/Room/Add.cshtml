@@ -10,7 +10,7 @@
 </div>
 <hr />
 <form asp-action="Add" method="post" class="row g-3 bg-light p-2 text-dark bg-opacity-75">
-    <input asp-for="@Model.HotelId" type="hidden" />
+    <input asp-for="@Model.UserId" type="hidden" />
     <div class="col-md-6">
         <label asp-for="@Model.Description" class="form-label">Description</label>
         <input asp-for="@Model.Description" class="form-control" id="inputDescription" placeholder="Description..." aria-required="true">
