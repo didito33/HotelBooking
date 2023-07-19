@@ -29,7 +29,7 @@ namespace HotelBooking.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddRoomViewModel roomModel)
+        public async Task<IActionResult> Add(int id,AddRoomViewModel roomModel)
         {
             bool roomCategoryExists = await this.roomService.RoomCategoryExistsByIdAsync(roomModel.RoomCategoryId);
 
@@ -44,10 +44,12 @@ namespace HotelBooking.Controllers
 
                 return this.View(roomModel);
             }
+            roomModel.HotelId = id;//Where to get it from
 
             await this.roomService.AddRoomAsync(roomModel);
 
             return this.View(roomModel);
+            //return RedirectToAction("Details", "Hotel", new { id = id });
         }
         public IActionResult Details(int id)
         {

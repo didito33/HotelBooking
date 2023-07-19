@@ -27,6 +27,6 @@ namespace HotelBooking.Models.Room
 
         public string UserId { get; set; }
 
-        public List<RoomCategoryViewModel> RoomCategories { get; set; }
+        public List<RoomCategoryViewModel> RoomCategories { get; set; } = new List<RoomCategoryViewModel>();
     }
 }

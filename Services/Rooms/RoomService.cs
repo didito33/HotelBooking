@@ -74,13 +74,14 @@ namespace HotelBooking.Services.Rooms
         {
             Room room = new Room()
             {
-                Id = roomModel.Id,
+                //Id = roomModel.Id, //Breaks the code - Identity 
                 Description = roomModel.Description,
                 ImageUrl = roomModel.ImageURL,
                 Capacity = roomModel.Capacity,
                 HotelId = roomModel.HotelId,
                 PricePerNight = roomModel.Price,
-                RoomCategoryId = roomModel.RoomCategoryId,
+                RoomCategoryId = roomModel.RoomCategoryId
+                //RoomCategory = context.RoomCategories.Where(x => x.Id == roomModel.RoomCategoryId).First()
             };
 
             await this.context.Rooms.AddAsync(room);
