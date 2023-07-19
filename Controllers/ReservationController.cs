@@ -13,7 +13,7 @@ namespace HotelBooking.Controllers
         private readonly UserManager<User> userManager;
         private readonly IRoomService roomService;
         private readonly IReservationService reservationService;
-        public ReservationController(UserManager<User> userManager,RoomService roomService,IReservationService reservationService)
+        public ReservationController(UserManager<User> userManager,IRoomService roomService,IReservationService reservationService)
         {
             this.userManager = userManager;
             this.roomService = roomService;
