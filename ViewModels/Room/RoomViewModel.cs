@@ -14,6 +14,6 @@
 
         public int HotelId { get; set; }
 
-        public decimal PriceForOneNight { get; set; }
+        public decimal PricePerNight { get; set; }
     }
 }

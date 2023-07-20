@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using System.Reflection.Emit;
+using System.Xml;
 
 using HotelBooking.Data.Configurations;
 using HotelBooking.Data.Entities;

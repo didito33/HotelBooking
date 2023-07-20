@@ -6,7 +6,7 @@ namespace HotelBooking.Models.Room
 {
     public class AddRoomViewModel
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         
         public int Capacity { get; set; }
 
@@ -21,7 +21,7 @@ namespace HotelBooking.Models.Room
 
         [Range(PricePerDayMin,PricePerDayMax ,
             ErrorMessage = "Price must be a positive number and less than {2} BGN.")]
-        public decimal Price { get; set; }
+        public decimal PricePerNight { get; set; }
 
         public int RoomCategoryId { get; set; }
 
