@@ -1,4 +1,7 @@
-﻿using HotelBooking.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+
+using HotelBooking.Data;
 using HotelBooking.Models.Hotel;
 using HotelBooking.Services.Hotels.Models;
 using HotelBooking.Services.Models;
@@ -9,12 +12,14 @@ namespace HotelBooking.Services.Hotels
     public class HotelService : IHotelService
     {
         private readonly HotelBookingDbContext context;
-        public HotelService(HotelBookingDbContext context)
+        private readonly IMapper mapper;
+        public HotelService(HotelBookingDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<HotelViewModel>> GetAllHotelsAsync()
+       /* public async Task<IEnumerable<HotelViewModel>> GetAllHotelsAsync()
         {
             return await this.context.Hotels.Select(h => new HotelViewModel()
             {
@@ -24,9 +29,12 @@ namespace HotelBooking.Services.Hotels
                 ImageUrl = h.ImageUrl,
                 Name = h.Name
             }).ToListAsync();
-        }
+        }*/
+        public async Task<IEnumerable<HotelViewModel>> GetAllHotelsAsync()
+            => await this.context.Hotels.ProjectTo<HotelViewModel>(this.mapper.ConfigurationProvider)
+            .ToListAsync();
 
-        public async Task<HotelDetailsViewModel?> GetDetailsAsync(int id)
+       /* public async Task<HotelDetailsViewModel?> GetDetailsAsync(int id)
         {
             return await context.Hotels
                 .Where(p => p.Id == id)
@@ -41,9 +49,15 @@ namespace HotelBooking.Services.Hotels
                     User = p.User.Email
                 })
                  .FirstOrDefaultAsync();
-        }
+        }*/
+        public async Task<HotelDetailsViewModel?> GetDetailsAsync(int id)
+        => await this.context.Hotels
+            .Where(p => p.Id == id)
+            .ProjectTo<HotelDetailsViewModel>(this.mapper.ConfigurationProvider)
+            .FirstOrDefaultAsync();
+        
 
-        public IEnumerable<HotelIndexServiceModel> LastThreeHotels()
+        /*public IEnumerable<HotelIndexServiceModel> LastThreeHotels()
             =>this.context.Hotels.OrderByDescending(h => h.Id)
                 .Select(h => new HotelIndexServiceModel
                 {
@@ -51,6 +65,10 @@ namespace HotelBooking.Services.Hotels
                     ImageUrl = h.ImageUrl,
                     Name = h.Name
                 })
-                .Take(3);
+                .Take(3);*/
+        public IEnumerable<HotelIndexServiceModel> LastThreeHotels() =>
+            this.context.Hotels.OrderByDescending(h => h.Id)
+            .ProjectTo<HotelIndexServiceModel>(this.mapper.ConfigurationProvider)
+            .Take(3);
     }
 }
