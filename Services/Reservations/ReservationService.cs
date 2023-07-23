@@ -1,17 +1,42 @@
-﻿using HotelBooking.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+
+using HotelBooking.Data;
 using HotelBooking.Data.Entities;
 using HotelBooking.Models.Room;
+using HotelBooking.ViewModels.Reservation;
+using HotelBooking.ViewModels.Room;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelBooking.Services.Reservations
 {
     public class ReservationService : IReservationService
     {
         private readonly HotelBookingDbContext context;
+        private readonly IMapper mapper;
 
-        public ReservationService(HotelBookingDbContext context)
+        public ReservationService(HotelBookingDbContext context,IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
+
+        public List<UserReservationViewModel> GetReservationsByUserId(string userId)
+        => this.context
+            .Reservations
+            .Where(r => r.UserId == userId)
+            .ProjectTo<UserReservationViewModel>(this.mapper.ConfigurationProvider)
+            .ToList();
+
+        public List<int> GetTakenRoomsIds(FilterRoomsViewModel model)
+        => this.context
+                   .Reservations
+                   .Where(r => (model.StartDate >= r.StartDate && model.StartDate < r.EndDate) || (model.EndDate >= r.StartDate && model.EndDate <= r.EndDate))
+                   .Where(r => r.Room.Capacity == model.CountOfPeople)
+                   .Where(r => r.Room.Hotel.City.Id == model.CityId)
+                   .Select(r => r.RoomId)
+                   .ToList();
 
         public bool ReserveRoom(ReserveRoomViewModel model, string userId, int roomId)
         {

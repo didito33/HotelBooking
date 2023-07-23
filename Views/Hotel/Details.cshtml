@@ -40,6 +40,34 @@
                     <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
                     <a asp-controller="Room" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-warning ">Add Room</a>
                 }
+                <div class="row">
+                    @{
+                        if (ViewBag.Rooms.Count <= 0)
+                        {
+                            <h3 class="h2">There are no rooms added in this hotel</h3>
+                        }
+                        else
+                        {
+                            <h2 class="h2">Rooms</h2>
+
+                            foreach (var room in ViewBag.Rooms)
+                            {
+                                <div class="col-3">
+                                    <div class="card mb-3 room-card">
+                                        <img src="@room.RoomImageUrl" class="card-img-top" alt="Room image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@room.RoomCategoryName room</h5>
+                                            <p class="card-text">@room.Description</p>
+                                            <a asp-controller="Room" asp-action="Details" asp-route-id="@room.Id" button type="button" class="btn btn-primary btn-lg btn-block d-block">View Room</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+
                 <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to Home Page</a>
             </div>
         </div>

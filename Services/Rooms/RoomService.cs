@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using HotelBooking.ViewModels.RoomCategory;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using HotelBooking.ViewModels.Room;
+using HotelBooking.Services.Reservations;
 
 namespace HotelBooking.Services.Rooms
 {
@@ -12,10 +14,12 @@ namespace HotelBooking.Services.Rooms
     {
         private readonly HotelBookingDbContext context;
         private readonly IMapper mapper;
-        public RoomService(HotelBookingDbContext dbcontext, IMapper mapper)
+        private readonly IReservationService reservationService;
+        public RoomService(HotelBookingDbContext dbcontext, IMapper mapper, IReservationService reservationService)
         {
-            context = dbcontext;
+            this.context = dbcontext;
             this.mapper = mapper;
+            this.reservationService = reservationService;
         }
         public async Task<List<RoomCategoryViewModel>> GetRoomCategories()
             => await this.context
@@ -84,6 +88,38 @@ namespace HotelBooking.Services.Rooms
 
             await this.context.Rooms.AddAsync(room);
             await this.context.SaveChangesAsync();
+        }
+
+        public List<HotelRoomsViewModel> GetAllRoomsByHotel(int hotelId, FilterRoomsViewModel model)
+        {
+            var rooms = new List<HotelRoomsViewModel>();
+
+            if (model.CountOfPeople == 0)
+            {
+                rooms = this.context
+                            .Rooms
+                            .Where(r => r.HotelId == hotelId)
+                            .ProjectTo<HotelRoomsViewModel>(this.mapper.ConfigurationProvider)
+                            .ToList()
+                            .DistinctBy(r => r.RoomCategoryName)
+                            .ToList();
+            }
+            else
+            {
+                var takenRoomsIds = this.reservationService.GetTakenRoomsIds(model);
+
+                rooms = this.context
+                            .Rooms
+                            .Where(r => r.HotelId == hotelId)
+                            .Where(r => r.Capacity == model.CountOfPeople)
+                            .Where(r => !takenRoomsIds.Contains(r.Id))
+                            .ProjectTo<HotelRoomsViewModel>(this.mapper.ConfigurationProvider)
+                            .ToList()
+                            .DistinctBy(r => r.RoomCategoryName)
+                            .ToList();
+            }
+
+            return rooms;
         }
     }
 }

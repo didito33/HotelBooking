@@ -1,4 +1,6 @@
-﻿using HotelBooking.Data.Entities;
+﻿using System.Security.Claims;
+
+using HotelBooking.Data.Entities;
 using HotelBooking.Models.Room;
 using HotelBooking.Services.Reservations;
 using HotelBooking.Services.Rooms;
@@ -20,6 +22,14 @@ namespace HotelBooking.Controllers
             this.reservationService = reservationService;
         }
 
+        public IActionResult MyReservations()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var reservations = this.reservationService.GetReservationsByUserId(userId);
+
+            return View(reservations);
+        }
         public IActionResult Reserve()
         {
             return this.View();
@@ -48,7 +58,7 @@ namespace HotelBooking.Controllers
                 return this.View();
             }
 
-            return RedirectToAction("MyReservations", "Reservations");
+            return RedirectToAction("MyReservations", "Reservation");
         }
     }
 }

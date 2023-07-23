@@ -1,6 +1,9 @@
 ﻿using HotelBooking.Models.Hotel;
 using HotelBooking.Services.Hotels;
+using HotelBooking.Services.Rooms;
 using HotelBooking.ViewModels.Hotel;
+using HotelBooking.ViewModels.Room;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +12,11 @@ namespace HotelBooking.Controllers
     public class HotelController : Controller
     {
         private readonly IHotelService service;
-        public HotelController(IHotelService service)
+        private readonly IRoomService roomService;
+        public HotelController(IHotelService service, IRoomService roomService)
         {
             this.service = service;
+            this.roomService = roomService;
         }
         public IActionResult Index()
         {
@@ -34,7 +39,15 @@ namespace HotelBooking.Controllers
             {
                 return BadRequest();
             }
-
+            FilterRoomsViewModel filterModel = new FilterRoomsViewModel();
+            if (TempData["CityId"] != null) 
+            {
+                filterModel.StartDate = DateTime.Parse(TempData["StartDate"].ToString());
+                filterModel.EndDate = DateTime.Parse(TempData["EndDate"].ToString());
+                filterModel.CountOfPeople = (int)TempData["CountOfPeople"];
+                filterModel.CityId = (int)TempData["CityId"];
+            }
+            this.ViewBag.Rooms = this.roomService.GetAllRoomsByHotel(id, filterModel);
             return View(model);
         }
 
