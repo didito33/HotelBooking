@@ -36,6 +36,7 @@ namespace HotelBooking.Services.Hotels
             Hotel hotel = await this.context
                 .Hotels
                 .Include(h => h.Category)
+                .Include(h=>h.City)
                 .FirstAsync(h => h.Id.ToString() == hotelId);
 
             return new HotelEditViewModel
@@ -53,9 +54,10 @@ namespace HotelBooking.Services.Hotels
         {
             Hotel hotel = await this.context
                 .Hotels
+                .Include(h=>h.City)
                 .FirstAsync(h => h.Id.ToString() == hotelId);
 
-            hotel.Id = formModel.Id;
+            //hotel.Id = formModel.Id;
             hotel.Name = formModel.Name;
             hotel.City.Name = formModel.City;
             hotel.Description = formModel.Description;

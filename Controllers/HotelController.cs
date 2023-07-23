@@ -67,19 +67,19 @@ namespace HotelBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string id, HotelEditViewModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                model.Categories = await this.service.GetHotelCategories();
-
-                return this.View(model);
-            }
-
             bool houseExists = await this.service
                 .ExistsByIdAsync(id);
 
             if (!houseExists)
             {
                 return this.RedirectToAction("All", "House");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                model.Categories = await this.service.GetHotelCategories();
+
+                return this.View(model);
             }
 
             try

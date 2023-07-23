@@ -17,6 +17,6 @@ namespace HotelBooking.ViewModels.Hotel
 
         public int CategoryId { get; set; }
 
-        public ICollection<HotelCategoryViewModel> Categories { get; set; }
+        public ICollection<HotelCategoryViewModel> Categories { get; set; } = new List<HotelCategoryViewModel>();
     }
 }

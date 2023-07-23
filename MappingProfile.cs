@@ -4,6 +4,7 @@ using HotelBooking.Data.Entities;
 using HotelBooking.Models.Hotel;
 using HotelBooking.Models.Room;
 using HotelBooking.Services.Models;
+using HotelBooking.ViewModels.HotelCategory;
 using HotelBooking.ViewModels.RoomCategory;
 
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -24,6 +25,8 @@ namespace HotelBooking
                 .ForMember(h => h.User, cfg => cfg.MapFrom(x => x.User.Email));
             this.CreateMap<Hotel, HotelViewModel>()
                 .ForMember(h => h.Category, cfg => cfg.MapFrom(x => x.Category.Name));
+            //this.CreateMap<Hotel, HotelCategoryViewModel>();
+            this.CreateMap<Category, HotelCategoryViewModel>();
         }
     }
 }
