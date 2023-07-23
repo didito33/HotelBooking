@@ -15,14 +15,15 @@ namespace HotelBooking.Data
         public HotelBookingDbContext(DbContextOptions<HotelBookingDbContext> options)
             : base(options)
         {
-            
+
         }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
-        public DbSet<Reservation> Reservations{ get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<RoomCategory> RoomCategories { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
