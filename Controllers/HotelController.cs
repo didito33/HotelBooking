@@ -40,7 +40,7 @@ namespace HotelBooking.Controllers
                 return BadRequest();
             }
             FilterRoomsViewModel filterModel = new FilterRoomsViewModel();
-            if (TempData["CityId"] != null) 
+            if (TempData["CityId"] != null)
             {
                 filterModel.StartDate = DateTime.Parse(TempData["StartDate"].ToString());
                 filterModel.EndDate = DateTime.Parse(TempData["EndDate"].ToString());
@@ -61,6 +61,7 @@ namespace HotelBooking.Controllers
             {
                 return this.RedirectToAction("All", "House");
             }
+            
 
             try
             {
